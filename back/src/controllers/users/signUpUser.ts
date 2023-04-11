@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 
 import bcrypt from 'bcrypt';
 
-import knex from '../connections/connection';
-import sendSignUpEmail from "../utils/sendSignUpEmail";
+import knex from '../../connections/connection';
+import sendSignUpEmail from "../../utils/sendSignUpEmail";
 
 
 export const signUpUser = async (req: Request, res: Response) => {
