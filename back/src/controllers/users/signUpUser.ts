@@ -6,7 +6,7 @@ import knex from '../../connections/connection';
 import sendSignUpEmail from "../../utils/sendSignUpEmail";
 
 
-export const signUpUser = async (req: Request, res: Response) => {
+const signUpUser = async (req: Request, res: Response) => {
     const { apelido: nickname, email, senha: password, repetirSenha: repeatPassword } = req.body;
     try {
         if (password !== repeatPassword) {
@@ -34,3 +34,5 @@ export const signUpUser = async (req: Request, res: Response) => {
         return res.status(500).json("Erro interno do servidor.")
     }
 }
+
+export default signUpUser
