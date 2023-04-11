@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken'
 
 import knex from '../connections/connection';
-import transporter from '../services/emailSender'
+import sendSignUpEmail from "../utils/sendSignUpEmail";
 
 
 export const signUpUser = async (req: Request, res: Response) => {
@@ -23,8 +22,15 @@ export const signUpUser = async (req: Request, res: Response) => {
         }
         const [responseSignUpUser] = await knex('usuarios').insert(newUser).returning('apelido');
 
+        const userSendEmail = { username: nickname, email }
+        sendSignUpEmail(userSendEmail)
+
         return res.status(201).json(`O usuário ${responseSignUpUser.apelido} foi criado.`)
-    } catch (error) {
+    } catch (error: any) {
+        if (error.constraint === 'usuarios_email_key') {
+            return res.status(400).json('E-mail já cadastrado no sistema!')
+        }
+
         return res.status(500).json("Erro interno do servidor.")
     }
 }
