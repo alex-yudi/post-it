@@ -1,7 +1,8 @@
 require('dotenv').config();
 import express from "express";
 
-import { verifyBodySignUpUser, verifyBodySignInUser } from '../middlewares/authentication'
+import { verifyBodySignUpUser } from '../middlewares/verifyBodySignUpUser'
+import { verifyBodySignInUser } from "../middlewares/verifyBodySignInUser";
 
 import signUpUser from "../controllers/users/signUpUser";
 import signInUser from "../controllers/users/signInUser";
