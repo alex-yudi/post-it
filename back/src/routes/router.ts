@@ -16,6 +16,7 @@ routes.post('/usuario', verifyBodySignUpUser, signUpUser)
 
 routes.post('/login', verifyBodySignInUser, signInUser)
 
-routes.post('/post-it', verifyBearerToken, createPostIt)
+routes.use(verifyBearerToken)
+routes.post('/post-it', createPostIt)
 
 export default routes

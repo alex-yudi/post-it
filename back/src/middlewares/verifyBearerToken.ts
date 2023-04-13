@@ -15,20 +15,23 @@ export const verifyBearerToken = async (req: RequestWithUserData, res: Response,
         if (!authorization) {
             return res.status(406).json("Por favor, forneça o token de autenticação.")
         }
-        const token = authorization.split(' ')[1]
-        if (token == 'undefined') {
-            return res.status(498).json("Por favor, forneça um token válido.")
-        }
 
+        const token = authorization.split(' ')[1]
         const verifyToken = await jwt.verify(token, authToken) as TokenInformation
+
         const userIdLogged = verifyToken.userId
         req.userId = userIdLogged
 
         next()
     } catch (error: any) {
+        if (error.message === 'jwt must be provided') {
+            return res.status(406).json('Por favor, forneça o token de autenticação.')
+        }
+
         if (error.message === 'invalid signature') {
             return res.status(498).json("Por favor, forneça um token válido.")
         }
+
         return res.status(500).json('Erro interno no servidor.')
     }
 }
