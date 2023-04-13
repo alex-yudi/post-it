@@ -1,5 +1,5 @@
 import { Request } from 'express'
 
-export interface RequireWithUserData extends Request {
+export interface RequestWithUserData extends Request {
     userId?: number
 }

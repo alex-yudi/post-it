@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { RequireWithUserData } from "../../utils/typesExpress";
+import { RequestWithUserData } from "../../utils/typesExpress";
 
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -8,7 +8,7 @@ import knex from "../../connections/connection";
 import authToken from "../../services/authToken";
 
 
-const signInUser = async (req: RequireWithUserData, res: Response) => {
+const signInUser = async (req: RequestWithUserData, res: Response) => {
     const { email, senha: password } = req.body;
 
     try {
